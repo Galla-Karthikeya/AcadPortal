@@ -1,0 +1,217 @@
+Server version: 8.0.35 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use collage;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_collage  |
++--------------------+
+| faculties          |
+| faculty_login      |
+| facultyassignments |
+| student_login      |
+| students           |
+| studentselections  |
+| subjects           |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc faculties;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| faculty_id    | varchar(10)  | NO   | PRI | NULL    |       |
+| faculty_name  | varchar(100) | YES  |     | NULL    |       |
+| faculty_email | varchar(255) | YES  |     | NULL    |       |
+| faculty_qual  | varchar(255) | YES  |     | NULL    |       |
+| faculty_dept  | varchar(255) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc faculty_login;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| F_id     | varchar(50)  | NO   | PRI | NULL    |       |
+| F_name   | varchar(100) | YES  |     | NULL    |       |
+| Password | varchar(100) | YES  |     | NULL    |       |
+| Email_id | varchar(100) | NO   | PRI | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc facultyassignments;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| faculty_id   | varchar(10)  | NO   | PRI | NULL    |       |
+| faculty_name | varchar(100) | YES  |     | NULL    |       |
+| subject_code | varchar(10)  | NO   | PRI | NULL    |       |
+| subject_name | varchar(100) | YES  |     | NULL    |       |
+| class_number | int          | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc student_login;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| S_id     | varchar(100) | NO   | PRI | NULL    |       |
+| S_name   | varchar(100) | YES  |     | NULL    |       |
+| Password | varchar(100) | YES  |     | NULL    |       |
+| Email_id | varchar(100) | NO   | PRI | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc students;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| student_id   | varchar(10)  | NO   | PRI | NULL    |       |
+| student_name | varchar(100) | YES  |     | NULL    |       |
+| cgpa         | decimal(3,1) | YES  |     | NULL    |       |
+| semester     | varchar(100) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc studentselections;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| student_id   | varchar(10) | NO   | PRI | NULL    |       |
+| subject_code | varchar(10) | NO   | PRI | NULL    |       |
+| faculty_id   | varchar(10) | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc subjects;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| subject_code | varchar(10)  | NO   | PRI | NULL    |       |
+| subject_name | varchar(100) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from faculties;
++------------+-----------------+---------------------------+--------------+--------------+
+| faculty_id | faculty_name    | faculty_email             | faculty_qual | faculty_dept |
++------------+-----------------+---------------------------+--------------+--------------+
+| F001       | John Doe        | john.doe@example.com      | BTech        | CSE          |
+| F002       | Jane Smith      | jane.smith@example.com    | BTech        | CSE AIML     |
+| F003       | Emily Johnson   | emily.johnson@example.com | PhD          | CSE AIML     |
+| F202       | Busam Vaishnavi | vbusam@gitam.edu          | BTech        | CSE AIML     |
++------------+-----------------+---------------------------+--------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from faculty_login;
++------+-----------------+--------------+---------------------------+
+| F_id | F_name          | Password     | Email_id                  |
++------+-----------------+--------------+---------------------------+
+| F001 | John Doe        | JDoe@001     | john.doe@example.com      |
+| F002 | Jane Smith      | JSmith@002   | jane.smith@example.com    |
+| F003 | Emily Johnson   | EJohnson@003 | emily.johnson@example.com |
+| F202 | Busam Vaishnavi | VBusam@03    | vbusam@gitam.edu          |
++------+-----------------+--------------+---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from facultyassignments;
++------------+-----------------+--------------+------------------------+--------------+
+| faculty_id | faculty_name    | subject_code | subject_name           | class_number |
++------------+-----------------+--------------+------------------------+--------------+
+| F001       | John Doe        | SUB01        | Data Structures        |          101 |
+| F001       | John Doe        | SUB02        | Machine Learning       |          102 |
+| F001       | John Doe        | SUB03        | Deep Learning          |          103 |
+| F002       | Jane Smith      | SUB01        | Data Structures        |          104 |
+| F002       | Jane Smith      | SUB04        | CLAD                   |          104 |
+| F002       | Jane Smith      | SUB05        | Digital Logic Circuits |          101 |
+| F003       | Emily Johnson   | SUB02        | Machine Learning       |          103 |
+| F003       | Emily Johnson   | SUB03        | Deep Learning          |          102 |
+| F003       | Emily Johnson   | SUB04        | CLAD                   |          103 |
+| F202       | Busam Vaishnavi | SUB02        | Machine Learning       |          102 |
+| F202       | Busam Vaishnavi | SUB03        | Deep Learning          |          105 |
+| F202       | Busam Vaishnavi | SUB04        | CLAD                   |          103 |
++------------+-----------------+--------------+------------------------+--------------+
+12 rows in set (0.00 sec)
+
+mysql> select * from student_login;
++------+------------------+--------------+---------------------------+
+| S_id | S_name           | Password     | Email_id                  |
++------+------------------+--------------+---------------------------+
+| S001 | Alice Johnson    | AJohnson@001 | alice.johnson@example.com |
+| S002 | Bob Smith        | BSmith@002   | bob.smith@example.com     |
+| S003 | Carol White      | CWhite@003   | carol.white@example.com   |
+| S004 | David Brown      | DBrown@004   | david.brown@example.com   |
+| S005 | Eve Black        | EBlack@005   | eve.black@example.com     |
+| S285 | Galla Karthikeya | KGalla@764   | kgalla@gitam.in           |
++------+------------------+--------------+---------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from students;
++------------+------------------+------+----------+
+| student_id | student_name     | cgpa | semester |
++------------+------------------+------+----------+
+| S001       | Alice Johnson    |  7.5 | 7        |
+| S002       | Bob Smith        |  8.2 | 7        |
+| S003       | Carol White      |  7.8 | 7        |
+| S004       | David Brown      |  8.5 | 7        |
+| S005       | Eve Black        |  8.9 | 7        |
+| S285       | Galla Karthikeya |  9.7 | 7        |
++------------+------------------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from studentselections;
++------------+--------------+------------+
+| student_id | subject_code | faculty_id |
++------------+--------------+------------+
+| S001       | SUB01        | F001       |
+| S001       | SUB02        | F202       |
+| S001       | SUB03        | F202       |
+| S001       | SUB04        | F202       |
+| S001       | SUB05        | F002       |
+| S002       | SUB01        | F001       |
+| S002       | SUB02        | F202       |
+| S002       | SUB03        | F202       |
+| S002       | SUB04        | F202       |
+| S002       | SUB05        | F002       |
+| S003       | SUB01        | F002       |
+| S003       | SUB02        | F202       |
+| S003       | SUB03        | F202       |
+| S003       | SUB04        | F202       |
+| S003       | SUB05        | F002       |
+| S004       | SUB01        | F002       |
+| S004       | SUB02        | F202       |
+| S004       | SUB03        | F202       |
+| S004       | SUB04        | F202       |
+| S004       | SUB05        | F002       |
+| S005       | SUB01        | F001       |
+| S005       | SUB02        | F202       |
+| S005       | SUB03        | F202       |
+| S005       | SUB04        | F202       |
+| S005       | SUB05        | F002       |
+| S285       | SUB01        | F001       |
+| S285       | SUB02        | F202       |
+| S285       | SUB03        | F202       |
+| S285       | SUB04        | F202       |
+| S285       | SUB05        | F002       |
++------------+--------------+------------+
+30 rows in set (0.00 sec)
+
+mysql> select * from subjects;
++--------------+------------------------+
+| subject_code | subject_name           |
++--------------+------------------------+
+| SUB01        | Data Structures        |
+| SUB02        | Machine Learning       |
+| SUB03        | Deep Learning          |
+| SUB04        | CLAD                   |
+| SUB05        | Digital Logic Circuits |
++--------------+------------------------+
+5 rows in set (0.00 sec)
